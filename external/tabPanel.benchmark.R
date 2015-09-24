@@ -16,11 +16,17 @@ tabPanel("Benchmark",
                             multiple=TRUE,
                             options=list(
                               placeholder = '',
-                              plugins = I("['remove_button']")))
+                              plugins = I("['remove_button']"))),
+
+             p(actionButton("goButton", "Go!"))
            ),
 
            mainPanel(
-             plotOutput("output_benchmark_plot"),
+             wellPanel(
+               plotOutput("output_benchmark_plot", height = "500px")
+               , style = "padding: 5px;"
+             ),
+             h4("Table"),
              tableOutput("output_benchmark_table")
            )
 
