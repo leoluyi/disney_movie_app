@@ -1,6 +1,7 @@
- 
-## === install required packages ===
-list.of.packages <- 
+
+# install required packages -----------------------------------------------
+
+list.of.packages <-
   c("dplyr", "pipeR", "stringr", "lazyeval", "Hmisc", "DT",
     "scales", "IDPmisc", "randomForest", "shinythemes")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
@@ -8,13 +9,17 @@ if(length(new.packages)) install.packages(new.packages)
 rm(list.of.packages, new.packages)
 
 
+# library -----------------------------------------------------------------
+
 library(shiny)
 library(shinythemes)
 library(DT)
 library(stringr) # for str_replace_all()
 library(lazyeval)
-# library(ggvis)
+library(directlabels)
+library(ggplot2)
 library(dplyr)
+library(tidyr)
 library(scales) # for date_format(), dollar_format()
 
 source("data/disney data manipulation.R", local=TRUE, encoding="UTF-8")
@@ -32,5 +37,5 @@ per.var <- c(
 
 # basic.tab[, per.var] <- round(basic.tab[, per.var]*100,digits=1) # percentage
 
-# strata.tab[, 9:length(strata.tab)] <- 
+# strata.tab[, 9:length(strata.tab)] <-
 #   round(strata.tab[, 9:length(strata.tab)]*100,digits=1) # percentage

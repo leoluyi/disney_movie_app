@@ -8,15 +8,20 @@ library(shiny)
 library(shinythemes)
 
 
-shinyUI(navbarPage(
-  title = "[EOLembrain] Movie Library Tools",
-  windowTitle = "[EOLembrain] Movie Library Tools",
-  theme = shinytheme("united"),
-  
-  # source tabPanel.DataTable
-  source("external/tabPanel.DataTable.R", local=TRUE, encoding="UTF-8")$value,
-  
-  # source tabPanel.PredicitonModel
-  source("external/tabPanel.PredicitonModel.R", local=TRUE, encoding="UTF-8")$value
-))
+shinyUI(
+  navbarPage(
+    title = "[EOLembrain] Movie Library Tools",
+    windowTitle = "[EOLembrain] Movie Library Tools",
+    theme = shinytheme("united"),
+
+    # source tabPanel.DataTable
+    source("external/tabPanel.DataTable.R", local=TRUE, encoding="UTF-8")$value,
+
+    # source tabPanel.PredicitonModel
+    source("external/tabPanel.PredicitonModel.R", local=TRUE, encoding="UTF-8")$value,
+
+    # source tabPanel.benchmark
+    source("external/tabPanel.benchmark.R", local=TRUE, encoding="UTF-8")$value
+  )
+)
 

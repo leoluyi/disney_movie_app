@@ -30,17 +30,20 @@ survey.data <- read.csv(textConnection(survey.data.string),
                         stringsAsFactors =F,
                         fileEncoding = "UTF-8") %>% as_data_frame
 
-# unable to use custom encoding
-# movie.data <- readr::read_csv("http://isas.panelpower.com.tw/isas45/surveyfile/2015/3522/data/movie_data_big5.csv",
-#                        col_names = TRUE,
-#                        na = c("NA",""),
-#                        col_types = paste0(rep("c", 14), collapse = ""))
+#  ------------------------------------------------------------------------
+
+# con1 <- file("http://isas.panelpower.com.tw/isas45/surveyfile/2015/3522/data/movie_data.csv",
+#           encoding="Big5")
+# movie.data <- readr::read_csv(con1, na = c("NA",""), locale=locale(encoding = "Big5"),
+#                               col_types = paste0(rep("c", 14), collapse = ""))
 #
 # survey.data <- readr::read_csv("http://isas.panelpower.com.tw/isas45/surveyfile/2015/3522/data/survey_data_big5.csv",
 #                         col_names = TRUE,
 #                         na = c("NA",""),
 #                         col_types = paste0(rep("c", 43), collapse = ""))
 
+
+#  ------------------------------------------------------------------------
 
 # wait for reading url link function
 # movie.data <- read_excel("\\\\10.10.20.210\\SurveyFile\\2015\\3522\\data\\dinsey_data.xlsx",
@@ -109,18 +112,19 @@ survey.data <- survey.data %>%
 
 # Combine data-------------------------------------------------------------------
 
-merge.data_1 <- left_join(survey.data, movie.data, by="MovieID") %>%
-  # mutate Wk.before.release
-  mutate(Wk.before.release = WeekNo - ReleaseWkNo) %>%
-  # extract week -1 data
-  dplyr::filter(Wk.before.release == -1) %>%
+merge.data <- dplyr::left_join(survey.data, movie.data, by="MovieID") %>%
+  # mutate wk_before_release
+  mutate(wk_before_release = as.integer(WeekNo - ReleaseWkNo)) %>%
   # drop unused factor levels
   droplevels() %>%
   # arrange by release date
   arrange(desc(ReleaseDate), MovieID)
 
-# rm row.names
-row.names(merge.data_1) <- NULL
+
+merge.data_1 <- merge.data%>%
+  # extract week -1 data
+  dplyr::filter(wk_before_release == -1)
+
 
 
 # Produce Shiny Data --------------------------------------------------------
