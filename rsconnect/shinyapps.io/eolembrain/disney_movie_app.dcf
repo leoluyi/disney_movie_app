@@ -1,8 +1,8 @@
 name: disney_movie_app
 account: eolembrain
 server: shinyapps.io
-bundleId: 272665
+bundleId: 272676
 url: https://eolembrain.shinyapps.io/disney_movie_app
-when: 1443084411.87023
+when: 1443085713.57269
 asMultiple: FALSE
 asStatic: FALSE

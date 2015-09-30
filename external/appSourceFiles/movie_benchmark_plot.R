@@ -10,6 +10,8 @@ movie_benchmark_plot <- reactive({
       aes(x = wk_before_release, y = value, colour=EngTitle) +
       facet_grid( ~ variable, scales = "free_y") +
       geom_line(aes(group=EngTitle), size=1.5, alpha=0.7) +
+      geom_point(size = 4) +
+      geom_point(colour="white", size = 1.5, show_guide = TRUE) +
       scale_x_continuous("Week-before-release", limits=c(-8, 0), breaks=(-8:0)) +
       scale_y_continuous(labels = scales::percent) +
       expand_limits(y=0) +
