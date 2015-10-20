@@ -4,9 +4,9 @@ tabPanel("DataTable",
            sidebarPanel(
              width=3,
 
-             textInput("password_input",
-                       label = "Please enter password",
-                       value = ""),
+             passwordInput(inputId = "password_input",
+                           label = "Please enter password",
+                           value = ""),
 
              selectizeInput('EngTitle',
                             label='English Title: ',
