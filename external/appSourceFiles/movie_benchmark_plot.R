@@ -4,8 +4,8 @@ movie_benchmark_plot <- reactive({
     movie_benchmark <- movie_benchmark()
     p <- movie_benchmark %>%
       dplyr::filter(wk_before_release %in% 0:-8) %>%
-      dplyr::select(EngTitle, ChiTitle, wk_before_release, DI, Aware) %>%
-      tidyr::gather(key = variable, value = value, DI, Aware, na.rm = T) %>%
+      dplyr::select(EngTitle, ChiTitle, wk_before_release, Aware, DI) %>%
+      tidyr::gather(key = variable, value = value, Aware, DI, na.rm = T) %>%
       ggplot() +
       aes(x = wk_before_release, y = value, colour=EngTitle) +
       facet_grid( ~ variable, scales = "free_y") +
@@ -16,8 +16,9 @@ movie_benchmark_plot <- reactive({
       scale_y_continuous(labels = scales::percent) +
       expand_limits(y=0) +
       ggtitle("Benchmark") +
-      guides(colour = guide_legend(nrow = 2)) +
-      theme(legend.position="top",
+      guides(colour = guide_legend(title=NULL, nrow = 2)) +
+      theme(axis.title.y = element_blank(),
+            legend.position="top",
             text = element_text(size = 16)
       )
 
