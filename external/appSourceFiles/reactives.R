@@ -42,15 +42,15 @@ movie.tbl <- reactive({
 movie.tbl.format <- reactive({
   movie.tbl.temp <- movie.tbl()
 
-  if (!is.null(movie.tbl()$WeekendBO)) {
-    movie.tbl.temp <- movie.tbl.temp %>%
-      mutate(WeekendBO = format(WeekendBO, big.mark = ",")) # thousand mark
-  }
-
-  if (!is.null(movie.tbl()$FinalBO)) {
-    movie.tbl.temp <- movie.tbl.temp %>%
-      mutate(FinalBO = format(FinalBO, big.mark = ",")) # thousand mark
-  }
+  # if (!is.null(movie.tbl()$WeekendBO)) {
+  #   movie.tbl.temp <- movie.tbl.temp %>%
+  #     mutate(WeekendBO = format(WeekendBO, big.mark = ",")) # thousand mark
+  # }
+  #
+  # if (!is.null(movie.tbl()$FinalBO)) {
+  #   movie.tbl.temp <- movie.tbl.temp %>%
+  #     mutate(FinalBO = format(FinalBO, big.mark = ",")) # thousand mark
+  # }
 
   movie.tbl.temp
 })
@@ -88,6 +88,14 @@ strata.tbl <- reactive({
       filter(grepl(note_text_input, note, ignore.case=TRUE))
   }
 
+  # filter date
+  if(!is.null(input$date_from)) {
+    strata.tab.temp <- strata.tab.temp %>% filter(ReleaseDate >= as.Date(input$date_from))
+  }
+  if(!is.null(input$date_to)) {
+    strata.tab.temp <- strata.tab.temp %>% filter(ReleaseDate <= as.Date(input$date_to))
+  }
+
   # arrange the order by desc(ReleaseDate)
   strata.tab.temp <- strata.tab.temp %>% arrange(desc(ReleaseDate))
 
@@ -99,8 +107,12 @@ strata.tbl <- reactive({
     select(matches(varlist(per.var.text))) %>%
     names
 
+  # strata.tab.temp[, per.var] <-
+  #   sapply(strata.tab.temp[, per.var], FUN = scales::percent) # percentage
+
+  ## round
   strata.tab.temp[, per.var] <-
-    sapply(strata.tab.temp[, per.var], FUN = scales::percent) # percentage
+    sapply(strata.tab.temp[, per.var], FUN = round, 3)
 
   strata.tab.temp <- strata.tab.temp %>% as.data.frame()
   strata.tab.temp

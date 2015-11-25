@@ -7,7 +7,10 @@ library(pipeR)
 
 # Read data ---------------------------------------------------------------
 
-movie.data.string <- readLines(con<-file("http://isas.panelpower.com.tw/isas45/surveyfile/2015/3522/data/movie_data.csv",
+# movie.data.string <- readLines(con<-file("http://isas.panelpower.com.tw/isas45/surveyfile/2015/3522/data/movie_data.csv",
+#                                          encoding="Big5"),
+#                                warn=FALSE); close(con)
+movie.data.string <- readLines(con<-file("data/movie_data.csv",
                                          encoding="Big5"),
                                warn=FALSE); close(con)
 
@@ -20,7 +23,10 @@ movie.data <- read.csv(textConnection(movie.data.string),
                        stringsAsFactors =F,
                        fileEncoding = "UTF-8") %>% as_data_frame
 
-survey.data.string <- readLines(con<-file("http://isas.panelpower.com.tw/isas45/surveyfile/2015/3522/data/survey_data.csv",
+# survey.data.string <- readLines(con<-file("http://isas.panelpower.com.tw/isas45/surveyfile/2015/3522/data/survey_data.csv",
+#                                           encoding="Big5"),
+#                                 warn=FALSE); close(con)
+survey.data.string <- readLines(con<-file("data/survey_data.csv",
                                           encoding="Big5"),
                                 warn=FALSE); close(con)
 # survey.data.string <- iconv(survey.data.string, from = "Big5", to = "UTF-8")
